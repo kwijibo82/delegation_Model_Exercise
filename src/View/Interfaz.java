@@ -6,27 +6,17 @@
 package View;
     
 import Escuchadores.ButtonAddCochesActionListener;
-import Interfaces.ISistema;
-import Model.Coche;
-import Sistema.Sistema;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -39,32 +29,23 @@ public class Interfaz extends JFrame {
     
     private final String TITULO = "MP-17181S-AA2";
     
-    private JPanel panelEntrada;
-    private JLabel etiquetaEntrada;
     private JTextField cajaTextoEntrada;
     
     //Botones
     private JButton buttonVerCoches;
     private JButton buttonAddCoches;
     private JButton buttonDelCoches;
-    private JButton botonElevarAlCuadrado;
-    private JButton calcularBaseButton;
-
+    
     //Paneles
     private JPanel panelSalida;
     private JScrollPane panelScrollSalida;
     private JPanel panelBotones;
     private JTextArea cajaTextoSalida;
     private TitledBorder borderPanelBotones;
+    private TitledBorder borderPanelEntradaDatosCoche;
+    private TitledBorder borderPanelSalidaDatos;
+    private JPanel panelEntradaDatosCoche;
 
-    private JPanel panelComponentes;
-    
-    private JPanel panelExtensionCuatro;
-    private TitledBorder borderExtensionCuatro;
-    private JLabel labelBaseOrigen;
-    private JSpinner spinnerBaseOrigen;
-    private JLabel labelBaseACalcular;
-    private JSpinner spinnerBaseACalcular;
            
     public Interfaz() {
         setTitle(TITULO);
@@ -79,42 +60,43 @@ public class Interfaz extends JFrame {
         
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 
-        panelEntrada = new JPanel();
-        panelEntrada.setLayout(new FlowLayout(FlowLayout.CENTER));
-        etiquetaEntrada = new JLabel("Entrada de datos:");
-        cajaTextoEntrada = new JTextField();
-        cajaTextoEntrada.setColumns(15);
-        panelEntrada.add(etiquetaEntrada);
-        panelEntrada.add(cajaTextoEntrada);
-
-        panelSalida = new JPanel();
-        panelSalida.setLayout(new BorderLayout(0, 0));
-        panelScrollSalida = new JScrollPane();
-        panelSalida.add(panelScrollSalida);
-        cajaTextoSalida = new JTextArea(20, 5);
-        cajaTextoSalida.setEditable(false);
-        panelScrollSalida.setViewportView(cajaTextoSalida);
-
-        panelComponentes = new JPanel();
-        panelComponentes.setLayout(new FlowLayout(FlowLayout.CENTER));
-        botonElevarAlCuadrado = new JButton("x²");
-        panelComponentes.add(botonElevarAlCuadrado);
-        
-        //Botones
+        //Panel botones
         panelBotones = new JPanel();
         panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
         borderPanelBotones = BorderFactory.createTitledBorder("Acciones");
         panelBotones.setBorder(borderPanelBotones);
+
+        //Panel entrada datos coche
+        panelEntradaDatosCoche = new JPanel();
+        panelEntradaDatosCoche.setLayout(new FlowLayout(FlowLayout.CENTER));    
+        borderPanelEntradaDatosCoche = 
+                BorderFactory.createTitledBorder("Añadir coche");
+        panelEntradaDatosCoche.setBorder(borderPanelEntradaDatosCoche);
         
+        //Panel salida datos
+        panelSalida = new JPanel();
+        panelSalida.setLayout(new FlowLayout(FlowLayout.CENTER));
+        borderPanelSalidaDatos = 
+                BorderFactory.createTitledBorder("Salida datos");
+        panelSalida.setBorder(borderPanelSalidaDatos);
+        panelScrollSalida = new JScrollPane();
+        panelSalida.add(panelScrollSalida);
+        cajaTextoSalida = new JTextArea(9, 65);
+        cajaTextoSalida.setEditable(false);
+        panelScrollSalida.setViewportView(cajaTextoSalida);
+   
+        //Botones
+        buttonAddCoches = new JButton("Añadir coche");
+        panelBotones.add(buttonAddCoches); 
         buttonVerCoches = new JButton("Ver coches");
-        panelBotones.add(buttonVerCoches);
+        panelBotones.add(buttonVerCoches); 
+        buttonDelCoches = new JButton("Borrar un coche");
+        panelBotones.add(buttonDelCoches);    
         
-        getContentPane().add(panelEntrada);
-        getContentPane().add(panelComponentes);
         getContentPane().add(panelBotones);
+        getContentPane().add(panelEntradaDatosCoche);
         getContentPane().add(panelSalida);
-        
-                
+                     
         // propiedades generales
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(800, 600));
@@ -149,6 +131,5 @@ public class Interfaz extends JFrame {
            buttonVerCoches.addActionListener(
                    new ButtonAddCochesActionListener(this));
         }
-        
-        
+       
 }
