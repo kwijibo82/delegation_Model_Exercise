@@ -6,36 +6,43 @@
 package Escuchadores;
 
 import Interfaces.ISistema;
+import Model.Coche;
 import Sistema.Sistema;
 import View.Interfaz;
+import View.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
  *
  * @author Javi
  */
-public class ButtonDeleteCocheActionListener implements ActionListener {
+public class ButtonShowCochesActionListener implements ActionListener {
 
-    private Interfaz interfaz;
-
-    public ButtonDeleteCocheActionListener(Interfaz interfaz) {
+    private Interfaz interfaz; 
+    
+    public ButtonShowCochesActionListener(Interfaz interfaz){
         this.interfaz = interfaz;
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         
+        interfaz.limpiarSalida();
+        interfaz.escribirDatosDeSalida(View.FirstRow());
+      
         ISistema sistema = new Sistema();
         
-        for (Iterator iterator = sistema.loadData().iterator();
+        ArrayList<Coche> arrayCoches = sistema.loadData();
+        
+        for (Iterator iterator = arrayCoches.iterator(); 
                 iterator.hasNext();) {
-            Object next = iterator.next();
-            
-            
+            Object coche = iterator.next();
+            interfaz.escribirDatosDeSalida(coche.toString());
         }
         
     }
-    
+
 }

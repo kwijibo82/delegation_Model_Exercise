@@ -262,4 +262,9 @@ public class Sistema implements ISistema, Serializable {
         return value;
     }
 
+    @Override
+    public ArrayList<Coche> getArrayListCoche() {
+        return arrayListCoches;
+    }
+
 }

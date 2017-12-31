@@ -38,7 +38,7 @@ public class Coche implements IGenerateValues, Serializable {
     private Double precioBase;
     private int Identificador;
     private Calendar fechaCreacion;
-
+    
     public Coche(String descripcion, String estado, String numBastidor, 
             Calendar fechaPrimeraMatricula, String tipologia, 
             Double precioBase) 
@@ -168,4 +168,6 @@ public class Coche implements IGenerateValues, Serializable {
     public Calendar getFechaCreacion() {
         return fechaCreacion;
     }
+    
+    
 }

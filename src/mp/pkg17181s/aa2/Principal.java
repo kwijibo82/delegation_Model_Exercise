@@ -30,9 +30,6 @@ public class Principal {
 			public void run() {
                            new Interfaz();
                             
-                           // Instancia del sistema y ejecucion
-                           //ISistema sistema = new Sistema();
-                           //sistema.ejecutar();
 			}
 		});
     }

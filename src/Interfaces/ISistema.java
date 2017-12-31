@@ -16,6 +16,8 @@ import java.util.Scanner;
  */
 public interface ISistema {
     
+    
+    public ArrayList<Coche> getArrayListCoche();
     /**
     * Método que debe implementar el sistema concreto con la funcionalidad
     * especifica.

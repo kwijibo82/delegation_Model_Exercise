@@ -5,16 +5,26 @@
  */
 package View;
     
-import Escuchadores.ButtonAddCochesActionListener;
+import Escuchadores.ButtonAddCocheActionListener;
+import Escuchadores.ButtonShowCochesActionListener;
+import Interfaces.ISistema;
+import Model.Coche;
+import Sistema.Sistema;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -45,7 +55,20 @@ public class Interfaz extends JFrame {
     private TitledBorder borderPanelEntradaDatosCoche;
     private TitledBorder borderPanelSalidaDatos;
     private JPanel panelEntradaDatosCoche;
-
+    
+    //Entrada datos
+    private JTextField JTextFieldDescripcion;
+    private JTextField JTextFieldEstado;
+    private JTextField JTextFieldNumBastidor;
+    private JTextField JTextFieldFechaPrimeraMatricula;
+    private JTextField JTextFieldTiplogia;
+    private JTextField JTextFieldPrecioBase;
+    private JLabel JLabelDescripcion;
+    private JLabel JLabelEstado;
+    private JLabel JLabelNumBastidor;
+    private JLabel JLabelFechaPrimeraMatricula;
+    private JLabel JLabelTipologia;
+    private JLabel JLabelPrecioBase;
            
     public Interfaz() {
         setTitle(TITULO);
@@ -72,6 +95,42 @@ public class Interfaz extends JFrame {
         borderPanelEntradaDatosCoche = 
                 BorderFactory.createTitledBorder("Añadir coche");
         panelEntradaDatosCoche.setBorder(borderPanelEntradaDatosCoche);
+               
+        JLabelDescripcion = new JLabel("Descripción:");
+        JTextFieldDescripcion = new JTextField();
+        JTextFieldDescripcion.setColumns(15);        
+        panelEntradaDatosCoche.add(JLabelDescripcion);
+        panelEntradaDatosCoche.add(JTextFieldDescripcion);
+        
+        JLabelEstado = new JLabel("Estado:");
+        JTextFieldEstado = new JTextField();
+        JTextFieldEstado.setColumns(15);        
+        panelEntradaDatosCoche.add(JLabelEstado);
+        panelEntradaDatosCoche.add(JTextFieldEstado);
+        
+        JLabelFechaPrimeraMatricula = new JLabel("Fecha primera matrícula:");
+        JTextFieldFechaPrimeraMatricula = new JTextField();
+        JTextFieldFechaPrimeraMatricula.setColumns(15);        
+        panelEntradaDatosCoche.add(JLabelFechaPrimeraMatricula);
+        panelEntradaDatosCoche.add(JTextFieldFechaPrimeraMatricula);
+        
+        JLabelNumBastidor = new JLabel("Núm. bastidor:");
+        JTextFieldNumBastidor = new JTextField();
+        JTextFieldNumBastidor.setColumns(15);        
+        panelEntradaDatosCoche.add(JLabelNumBastidor);
+        panelEntradaDatosCoche.add(JTextFieldNumBastidor);
+
+        JLabelTipologia = new JLabel("Tipología:");
+        JTextFieldTiplogia = new JTextField();
+        JTextFieldTiplogia.setColumns(15);        
+        panelEntradaDatosCoche.add(JLabelTipologia);
+        panelEntradaDatosCoche.add(JTextFieldTiplogia);
+       
+        JLabelPrecioBase = new JLabel("Precio base:");
+        JTextFieldPrecioBase = new JTextField();
+        JTextFieldPrecioBase.setColumns(15);        
+        panelEntradaDatosCoche.add(JLabelPrecioBase);
+        panelEntradaDatosCoche.add(JTextFieldPrecioBase);
         
         //Panel salida datos
         panelSalida = new JPanel();
@@ -96,7 +155,7 @@ public class Interfaz extends JFrame {
         getContentPane().add(panelBotones);
         getContentPane().add(panelEntradaDatosCoche);
         getContentPane().add(panelSalida);
-                     
+        
         // propiedades generales
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(800, 600));
@@ -113,7 +172,8 @@ public class Interfaz extends JFrame {
 	public void escribirDatosDeSalida(String texto) {
 		String formato = "hh:mm:ss a";
 		DateFormat dateFormat = new SimpleDateFormat(formato);
-		String tiempo = dateFormat.format(new GregorianCalendar().getTime());
+		String tiempo = dateFormat
+                        .format(new GregorianCalendar().getTime());
 		cajaTextoSalida.append(tiempo + " :: " + texto + "\n");
 	}
         
@@ -129,7 +189,51 @@ public class Interfaz extends JFrame {
 
         private void registrarEscuchadores() {
            buttonVerCoches.addActionListener(
-                   new ButtonAddCochesActionListener(this));
+                   new ButtonShowCochesActionListener(this));
+           buttonAddCoches.addActionListener(
+                   new ButtonAddCocheActionListener(this));
         }
-       
+
+    /**
+     * Parsea el string del JTextField de la fecha
+     * de la primera matricula a Calendar
+     * @param text
+     * @return 
+     */
+    public Calendar parseToCalendar(String text) {
+         
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd", Locale.ENGLISH);
+        try {
+            cal.setTime(sdf.parse(JTextFieldFechaPrimeraMatricula.getText()));// all done
+        } catch (ParseException ex) {
+            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cal;
+    }
+
+    //Getters y setters de los campos de entrada de datos
+    public JTextField getJTextFieldDescripcion() {
+        return JTextFieldDescripcion;
+    }
+
+    public JTextField getJTextFieldEstado() {
+        return JTextFieldEstado;
+    }
+
+    public JTextField getJTextFieldNumBastidor() {
+        return JTextFieldNumBastidor;
+    }
+
+    public JTextField getJTextFieldFechaPrimeraMatricula() {
+        return JTextFieldFechaPrimeraMatricula;
+    }
+
+    public JTextField getJTextFieldTiplogia() {
+        return JTextFieldTiplogia;
+    }
+
+    public JTextField getJTextFieldPrecioBase() {
+        return JTextFieldPrecioBase;
+    }
 }
