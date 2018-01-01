@@ -7,6 +7,7 @@ package View;
     
 import Escuchadores.ButtonAddCocheActionListener;
 import Escuchadores.ButtonShowCochesActionListener;
+import Escuchadores.ButtonShowDeleteFormActionListener;
 import Interfaces.ISistema;
 import Model.Coche;
 import Sistema.Sistema;
@@ -192,6 +193,8 @@ public class Interfaz extends JFrame {
                    new ButtonShowCochesActionListener(this));
            buttonAddCoches.addActionListener(
                    new ButtonAddCocheActionListener(this));
+           buttonDelCoches.addActionListener(
+                   new ButtonShowDeleteFormActionListener());
         }
 
     /**

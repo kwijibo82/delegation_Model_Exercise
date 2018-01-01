@@ -28,6 +28,11 @@ public interface ISistema {
      * Método que guarda los datos cuando finaliza la ejecución.
      */
     public void saveData();
+
+    /**
+     * Método que borra un determinado coche del sistema.
+     */
+    public void deleteCar(int id);
     
     /**
      * Método que carga los datos  cuando finaliza la ejecución.

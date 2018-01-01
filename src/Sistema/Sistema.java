@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -80,7 +81,7 @@ public class Sistema implements ISistema, Serializable {
                             addNewCar();
                             break;
                         case "3":
-                            deleteCar();
+                            //deleteCar();
                             break;
                         case "0":
                             saveData();
@@ -206,29 +207,26 @@ public class Sistema implements ISistema, Serializable {
       
     }
     
-    private void deleteCar() {
-        
+    @Override
+    public void deleteCar(int id) {
+       
         boolean found = false;
-        int id;
-        Scanner sc = new Scanner(System.in);   
-        View.enterCarIdView();
-        id = sc.nextInt();
+
         for (Iterator<Coche> iterator = arrayListCoches.iterator();
                 iterator.hasNext();) {
             Coche c = iterator.next();
             if (c.getIdentificador() == id) {
                 iterator.remove();
                 found = true;
+                JOptionPane.showMessageDialog(null, "EL coche con id " 
+                    + id + " ha sido eliminado del sistema", "Atención",
+                    JOptionPane.INFORMATION_MESSAGE);
             }           
-        }
-        for (Coche c : arrayListCoches) {
-            if (c.getIdentificador() == id) {
-                this.arrayListCoches.remove(c);
-                found = true;
-            }
-        }
+        }  
         if (!found) {           
-            View.notFoundCarView(id);
+            JOptionPane.showMessageDialog(null, "EL coche con id " 
+                    + id + " no se encuentra en el sistema", "Atención",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -266,5 +264,7 @@ public class Sistema implements ISistema, Serializable {
     public ArrayList<Coche> getArrayListCoche() {
         return arrayListCoches;
     }
+
+   
 
 }
